@@ -28,6 +28,9 @@ jobs:
 
     env:
       TEST_DATABASE_URL: postgresql+psycopg://fopilot:fopilot@localhost:5432/fopilot_test
+      # Turn "DB unreachable" from a skip into a hard failure, so CI cannot go
+      # green on skipped integration tests.
+      FOPILOT_REQUIRE_DB: "1"
 
     steps:
       - uses: actions/checkout@v4

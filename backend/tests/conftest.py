@@ -42,7 +42,12 @@ def engine() -> Iterator[Engine]:
     eng = create_engine(TEST_DATABASE_URL)
     try:
         eng.connect().close()
-    except Exception:
+    except Exception as exc:
+        # Skip is a local convenience only. In CI (and anywhere FOPILOT_REQUIRE_DB
+        # is set) an unreachable DB must FAIL, so the pipeline can never go green
+        # on silently skipped integration tests.
+        if os.environ.get("FOPILOT_REQUIRE_DB"):
+            pytest.fail(f"Тестова БД недоступна, а FOPILOT_REQUIRE_DB заданий: {exc}")
         pytest.skip("Тестова БД недоступна", allow_module_level=False)
 
     cfg = Config("alembic.ini")

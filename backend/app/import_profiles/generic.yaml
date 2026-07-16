@@ -1,0 +1,15 @@
+# Загальний профіль: UTF-8, кома-роздільник, крапка як десятковий, ISO-дати.
+name: generic
+encoding: null            # null -> автовизначення кодування
+delimiter: ","
+decimal_separator: "."
+thousands_separator: null
+date_formats:
+  - "%Y-%m-%d"
+default_currency: "UAH"
+columns:
+  date: "date"
+  amount: "amount"
+  currency: "currency"
+  description: "description"
+  counterparty: "counterparty"

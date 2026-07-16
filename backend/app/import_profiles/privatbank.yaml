@@ -1,0 +1,17 @@
+# Профіль у стилі виписки ПриватБанку: ';'-роздільник, кома як десятковий,
+# пробіл як роздільник тисяч, дати dd.mm.yyyy, україномовні заголовки колонок.
+name: privatbank
+encoding: null            # часто Windows-1251 — покладаємось на автовизначення
+delimiter: ";"
+decimal_separator: ","
+thousands_separator: " "
+date_formats:
+  - "%d.%m.%Y"
+  - "%d.%m.%Y %H:%M"
+default_currency: "UAH"
+columns:
+  date: "Дата"
+  amount: "Сума"
+  currency: "Валюта"
+  description: "Призначення платежу"
+  counterparty: "Контрагент"

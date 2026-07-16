@@ -18,6 +18,10 @@ class ExchangeRate(Base):
     currency: Mapped[str] = mapped_column(String(3))
     rate_date: Mapped[date] = mapped_column(Date)
     rate: Mapped[Decimal] = mapped_column(Numeric(14, 6))
+    # Provenance: NULL means the rate was published by the NBU for rate_date;
+    # a value means it was taken via weekend/holiday fallback from that (earlier)
+    # banking day (see ADR-006).
+    source_date: Mapped[date | None] = mapped_column(Date)
 
     __table_args__ = (
         UniqueConstraint("currency", "rate_date", name="uq_exchange_rate_currency_date"),

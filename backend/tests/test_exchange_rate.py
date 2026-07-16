@@ -10,6 +10,7 @@ from decimal import Decimal
 import pytest
 from sqlalchemy.orm import Session
 
+from app.repositories import ExchangeRateRepository
 from app.services.exceptions import RateUnavailableError
 from app.services.nbu import ExchangeRateService
 
@@ -42,6 +43,11 @@ def test_rate_is_cached_after_first_fetch(db: Session) -> None:
     # Same date must be fetched from the API only once.
     assert fake.calls == [date(2026, 2, 6)]
 
+    # Rate published directly for the date -> no fallback -> source_date is NULL.
+    cached = ExchangeRateRepository(db).get_for("USD", date(2026, 2, 6))
+    assert cached is not None
+    assert cached.source_date is None
+
 
 def test_saturday_payment_falls_back_to_last_banking_day(db: Session) -> None:
     saturday = date(2026, 2, 7)
@@ -58,6 +64,12 @@ def test_saturday_payment_falls_back_to_last_banking_day(db: Session) -> None:
     # Resolved rate is cached under the requested Saturday, so no more API calls.
     assert service.get_rate("USD", saturday) == Decimal("41.50")
     assert fake.calls == [saturday, friday]
+
+    # Provenance recorded: cached under Saturday, but sourced from Friday.
+    cached = ExchangeRateRepository(db).get_for("USD", saturday)
+    assert cached is not None
+    assert cached.rate_date == saturday
+    assert cached.source_date == friday
 
 
 def test_rate_found_at_lookback_boundary(db: Session) -> None:

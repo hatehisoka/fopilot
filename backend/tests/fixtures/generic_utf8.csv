@@ -1,0 +1,6 @@
+date,amount,currency,description,counterparty
+2026-02-03,1000.00,USD,Payment INV-001,Acme
+2026-02-04,-50.50,UAH,Bank fee,Bank
+2026-02-05,500.00,USD,Payment INV-002,Globex
+2026-02-05,500.00,USD,Payment INV-002,Globex
+bad-date,100.00,USD,broken row,X

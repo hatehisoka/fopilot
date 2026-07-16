@@ -83,8 +83,16 @@ class ExchangeRateService:
             rate = self.fetcher.fetch_rate(currency, candidate)
             if rate is not None:
                 # Cache under the requested date (not the banking day) so a repeat
-                # request for the same weekend date is served from cache.
-                self.repo.add(ExchangeRate(currency=currency, rate_date=on_date, rate=rate))
+                # request for the same weekend date is served from cache. Record
+                # provenance: source_date is set only when a fallback happened.
+                self.repo.add(
+                    ExchangeRate(
+                        currency=currency,
+                        rate_date=on_date,
+                        rate=rate,
+                        source_date=candidate if candidate != on_date else None,
+                    )
+                )
                 self.db.commit()
                 return rate
 

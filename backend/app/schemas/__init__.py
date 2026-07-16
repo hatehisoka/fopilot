@@ -1,6 +1,7 @@
 """Pydantic schemas (kept separate from ORM models)."""
 
 from app.schemas.client import ClientCreate, ClientRead, ClientUpdate
+from app.schemas.import_report import ImportReport, ImportRowError
 from app.schemas.invoice import (
     InvoiceBuildRequest,
     InvoiceCreate,
@@ -16,6 +17,8 @@ __all__ = [
     "ClientCreate",
     "ClientRead",
     "ClientUpdate",
+    "ImportReport",
+    "ImportRowError",
     "InvoiceBuildRequest",
     "InvoiceCreate",
     "InvoiceItemCreate",

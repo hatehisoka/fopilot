@@ -1,6 +1,7 @@
 """Business-logic layer."""
 
 from app.services.client_service import ClientService
+from app.services.csv_import import CsvImportService
 from app.services.exceptions import (
     ConflictError,
     NotFoundError,
@@ -15,6 +16,7 @@ from app.services.time_entry_service import TimeEntryService
 __all__ = [
     "ClientService",
     "ConflictError",
+    "CsvImportService",
     "ExchangeRateService",
     "InvoiceService",
     "NbuClient",

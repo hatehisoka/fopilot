@@ -10,6 +10,13 @@ from app.schemas.invoice import (
     InvoiceRead,
     InvoiceUpdate,
 )
+from app.schemas.payment import (
+    MatchRunError,
+    MatchRunReport,
+    PaymentConfirm,
+    PaymentRead,
+    PaymentRevenueUpdate,
+)
 from app.schemas.project import ProjectCreate, ProjectRead, ProjectUpdate
 from app.schemas.time_entry import TimeEntryCreate, TimeEntryRead, TimeEntryUpdate
 
@@ -25,6 +32,11 @@ __all__ = [
     "InvoiceItemRead",
     "InvoiceRead",
     "InvoiceUpdate",
+    "MatchRunError",
+    "MatchRunReport",
+    "PaymentConfirm",
+    "PaymentRead",
+    "PaymentRevenueUpdate",
     "ProjectCreate",
     "ProjectRead",
     "ProjectUpdate",

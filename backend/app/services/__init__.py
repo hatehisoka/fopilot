@@ -9,7 +9,9 @@ from app.services.exceptions import (
     ServiceError,
 )
 from app.services.invoice_service import InvoiceService
+from app.services.matching import MatchingService
 from app.services.nbu import ExchangeRateService, NbuClient
+from app.services.payment_service import PaymentService
 from app.services.project_service import ProjectService
 from app.services.time_entry_service import TimeEntryService
 
@@ -19,8 +21,10 @@ __all__ = [
     "CsvImportService",
     "ExchangeRateService",
     "InvoiceService",
+    "MatchingService",
     "NbuClient",
     "NotFoundError",
+    "PaymentService",
     "ProjectService",
     "RateUnavailableError",
     "ServiceError",

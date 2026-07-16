@@ -1,0 +1,5 @@
+date,amount,currency,description,counterparty
+2026-02-10,500.00,UAH,Oplata rakhunku INV-500,Client A
+2026-02-11,-30.00,UAH,Bank fee,Bank
+2026-02-12,999.00,UAH,Own card top-up,Self
+2026-02-13,700.00,UAH,Payment without number,Client B

@@ -13,3 +13,7 @@ class InvoiceRepository(BaseRepository[Invoice]):
 
     def get_by_number(self, number: str) -> Invoice | None:
         return self.db.scalar(select(Invoice).where(Invoice.number == number))
+
+    def list_all(self) -> list[Invoice]:
+        """All invoices — used by matching to search numbers and amounts."""
+        return list(self.db.scalars(select(Invoice)).all())

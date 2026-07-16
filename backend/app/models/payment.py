@@ -6,7 +6,7 @@ from datetime import date
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Date, ForeignKey, Numeric, String
+from sqlalchemy import Boolean, Date, ForeignKey, Index, Numeric, String, text
 from sqlalchemy import Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -37,6 +37,22 @@ class Payment(Base):
     match_status: Mapped[MatchStatus] = mapped_column(
         SAEnum(MatchStatus, name="match_status"), default=MatchStatus.unmatched
     )
+    # Whether this inflow counts as ФОП revenue for the single-tax limit. Own-card
+    # top-ups, refunds and bank interest are inflows but not revenue (see ADR-012).
+    # Orthogonal to match_status: a payment can be revenue without an invoice.
+    is_revenue: Mapped[bool] = mapped_column(Boolean, default=True, server_default=text("true"))
 
     invoice: Mapped[Invoice | None] = relationship(back_populates="payments")
     bank_transaction: Mapped[BankTransaction | None] = relationship(back_populates="payment")
+
+    __table_args__ = (
+        # One imported bank row yields at most one payment (ADR-001). Partial so
+        # manually entered payments (NULL bank_transaction_id) are unconstrained.
+        # This is what makes re-running matching idempotent (ADR-013).
+        Index(
+            "uq_payment_bank_transaction",
+            "bank_transaction_id",
+            unique=True,
+            postgresql_where=text("bank_transaction_id IS NOT NULL"),
+        ),
+    )

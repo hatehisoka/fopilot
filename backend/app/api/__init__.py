@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from app.api import clients, imports, invoices, projects, time_entries
+from app.api import clients, imports, invoices, payments, projects, time_entries
 
 api_router = APIRouter()
 api_router.include_router(clients.router)
@@ -10,5 +10,6 @@ api_router.include_router(projects.router)
 api_router.include_router(time_entries.router)
 api_router.include_router(invoices.router)
 api_router.include_router(imports.router)
+api_router.include_router(payments.router)
 
 __all__ = ["api_router"]

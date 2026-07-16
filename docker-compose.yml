@@ -6,7 +6,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
       POSTGRES_DB: ${POSTGRES_DB:-fopilot}
     ports:
-      - "5432:5432"
+      # Host 5433 -> container 5432, щоб не конфліктувати з локальним Postgres на 5432.
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -19,7 +20,10 @@ services:
     build: ./backend
     env_file: .env
     environment:
+      # У мережі compose бекенд ходить до db напряму на 5432 (внутрішній порт),
+      # незалежно від хост-мапінгу 5433 вище.
       POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
     ports:
       - "8000:8000"
     depends_on:

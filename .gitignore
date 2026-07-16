@@ -1,11 +1,30 @@
+# Python
 .venv/
+venv/
 __pycache__/
 *.py[cod]
+*.egg-info/
 .pytest_cache/
 .ruff_cache/
-.idea/
+.coverage
+htmlcov/
+
+# Environment / secrets
 .env
+*.env
+!.env.example
+
+# Node / frontend
 node_modules/
 dist/
+.vite/
+
+# IDE / OS
+.idea/
+.vscode/
 .DS_Store
 *.iml
+
+# Local data
+*.sqlite
+*.db

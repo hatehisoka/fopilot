@@ -4,7 +4,12 @@ from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.schemas import InvoiceCreate, InvoiceRead, InvoiceUpdate
+from app.schemas import (
+    InvoiceBuildRequest,
+    InvoiceCreate,
+    InvoiceRead,
+    InvoiceUpdate,
+)
 from app.services import InvoiceService
 
 router = APIRouter(prefix="/invoices", tags=["invoices"])
@@ -13,6 +18,12 @@ router = APIRouter(prefix="/invoices", tags=["invoices"])
 @router.post("", response_model=InvoiceRead, status_code=status.HTTP_201_CREATED)
 def create_invoice(data: InvoiceCreate, db: Session = Depends(get_db)) -> InvoiceRead:
     return InvoiceService(db).create(data)
+
+
+@router.post("/build", response_model=InvoiceRead, status_code=status.HTTP_201_CREATED)
+def build_invoice(data: InvoiceBuildRequest, db: Session = Depends(get_db)) -> InvoiceRead:
+    """Згенерувати інвойс з оплачуваних незабілених годин клієнта."""
+    return InvoiceService(db).build_from_time_entries(data)
 
 
 @router.get("", response_model=list[InvoiceRead])

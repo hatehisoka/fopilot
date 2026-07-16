@@ -2,6 +2,7 @@
 
 from app.schemas.client import ClientCreate, ClientRead, ClientUpdate
 from app.schemas.invoice import (
+    InvoiceBuildRequest,
     InvoiceCreate,
     InvoiceItemCreate,
     InvoiceItemRead,
@@ -15,6 +16,7 @@ __all__ = [
     "ClientCreate",
     "ClientRead",
     "ClientUpdate",
+    "InvoiceBuildRequest",
     "InvoiceCreate",
     "InvoiceItemCreate",
     "InvoiceItemRead",

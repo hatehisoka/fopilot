@@ -60,3 +60,20 @@ class InvoiceRead(ORMModel):
     status: InvoiceStatus
     amount: Decimal
     items: list[InvoiceItemRead]
+
+
+class InvoiceBuildRequest(BaseModel):
+    """Request to build an invoice from a client's billable, unbilled hours.
+
+    Currency is derived from the selected projects, not supplied here (see
+    ADR-011). The period and project filter are optional; omitting both bills
+    every outstanding billable hour of the client.
+    """
+
+    client_id: int
+    number: str = Field(min_length=1, max_length=50)
+    issue_date: date
+    due_date: date | None = None
+    project_ids: list[int] | None = None
+    date_from: date | None = None
+    date_to: date | None = None

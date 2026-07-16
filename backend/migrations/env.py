@@ -14,7 +14,11 @@ from app.config import settings
 from app.db import Base
 
 config = context.config
-config.set_main_option("sqlalchemy.url", settings.sqlalchemy_url)
+
+# Respect a URL provided programmatically (e.g. by the test suite); otherwise
+# fall back to the application settings. Never override an explicit value.
+if not config.get_main_option("sqlalchemy.url"):
+    config.set_main_option("sqlalchemy.url", settings.sqlalchemy_url)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
@@ -25,7 +29,7 @@ target_metadata = Base.metadata
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode (emit SQL without a DB connection)."""
     context.configure(
-        url=settings.sqlalchemy_url,
+        url=config.get_main_option("sqlalchemy.url"),
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},

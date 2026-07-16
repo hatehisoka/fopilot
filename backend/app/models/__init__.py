@@ -4,7 +4,7 @@ Importing this module registers every model on ``Base.metadata`` (used by Alembi
 and defines the computed ``Invoice.amount`` column property.
 """
 
-from sqlalchemy import func, select
+from sqlalchemy import Numeric, cast, func, select
 from sqlalchemy.orm import column_property
 
 from app.models.bank_transaction import BankTransaction
@@ -20,7 +20,12 @@ from app.models.time_entry import TimeEntry
 # (ADR-003). Defined here, after both classes are mapped, to avoid a circular
 # reference between Invoice and InvoiceItem.
 Invoice.amount = column_property(
-    select(func.coalesce(func.sum(InvoiceItem.quantity * InvoiceItem.unit_price), 0))
+    select(
+        cast(
+            func.coalesce(func.sum(InvoiceItem.quantity * InvoiceItem.unit_price), 0),
+            Numeric(14, 2),
+        )
+    )
     .where(InvoiceItem.invoice_id == Invoice.id)
     .scalar_subquery(),
 )

@@ -11,3 +11,7 @@ class NotFoundError(ServiceError):
 
 class ConflictError(ServiceError):
     """The operation violates a uniqueness or business invariant."""
+
+
+class RateUnavailableError(ServiceError):
+    """No NBU exchange rate could be resolved within the lookback window."""

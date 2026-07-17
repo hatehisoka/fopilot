@@ -1,6 +1,6 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-import { AXIS_TICK, GRID_STROKE, SERIES_POSITIVE } from "../chartTheme";
+import { AXIS_TICK, GRID_STROKE, SERIES_LINE } from "../chartTheme";
 import { formatPercent, formatPeriodLabel } from "../format";
 import type { MonthlyUtilization } from "../types";
 import { ChartTooltip } from "./ChartTooltip";
@@ -16,7 +16,7 @@ export function UtilizationChart({ data }: { data: MonthlyUtilization[] }) {
   return (
     <section className="card">
       <header className="card-header">
-        <h2>Utilization по місяцях</h2>
+        <h2>Завантаженість по місяцях</h2>
       </header>
       {!hasAny ? (
         <p className="empty">Немає даних</p>
@@ -40,11 +40,11 @@ export function UtilizationChart({ data }: { data: MonthlyUtilization[] }) {
             <Line
               type="monotone"
               dataKey="value"
-              stroke={SERIES_POSITIVE}
+              stroke={SERIES_LINE}
               strokeWidth={2}
-              dot={{ r: 3, fill: SERIES_POSITIVE }}
+              dot={{ r: 3, fill: SERIES_LINE }}
               connectNulls={false}
-              name="Utilization"
+              name="Завантаженість"
             />
           </LineChart>
         </ResponsiveContainer>

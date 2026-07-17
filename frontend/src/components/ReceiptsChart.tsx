@@ -1,6 +1,6 @@
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-import { AXIS_TICK, BAR_RADIUS, GRID_STROKE, SERIES_ACCENT } from "../chartTheme";
+import { AXIS_TICK, BAR_MAX_SIZE, BAR_RADIUS, GRID_STROKE, SERIES_BAR } from "../chartTheme";
 import { formatMoney, formatNumber, formatPeriodLabel } from "../format";
 import type { ReceiptsReport } from "../types";
 import { ChartTooltip } from "./ChartTooltip";
@@ -36,7 +36,13 @@ export function ReceiptsChart({ report }: { report: ReceiptsReport }) {
               cursor={{ fill: "var(--color-bg)" }}
               content={<ChartTooltip valueFormatter={(v) => formatMoney(v)} />}
             />
-            <Bar dataKey="amount" fill={SERIES_ACCENT} radius={[BAR_RADIUS, BAR_RADIUS, 0, 0]} name="Надходження" />
+            <Bar
+              dataKey="amount"
+              fill={SERIES_BAR}
+              radius={[BAR_RADIUS, BAR_RADIUS, 0, 0]}
+              maxBarSize={BAR_MAX_SIZE}
+              name="Надходження"
+            />
           </BarChart>
         </ResponsiveContainer>
       )}

@@ -7,7 +7,7 @@ export function UnconvertedBadge({ count }: { count: number }) {
   }
   return (
     <span
-      className="badge-warning"
+      className="badge badge-warning"
       title="Ці платежі не враховані в сумі, бо курс НБУ ще не сконвертовано"
     >
       ⚠ {count} не сконвертовано

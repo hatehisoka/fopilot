@@ -8,7 +8,7 @@ body {
   font-size: var(--text-base);
   color: var(--color-text);
   background: var(--color-bg);
-  /* Табличні цифри: суми не «стрибають» по ширині — ключове для фінансів. */
+  /* Табличні цифри: суми не «стрибають» по ширині. */
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
@@ -22,18 +22,25 @@ h2 {
 .page {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-6) var(--space-4) var(--space-12);
+  padding: var(--space-8) var(--space-4) var(--space-12);
+}
+
+.page-header {
+  border-bottom: var(--border-width) solid var(--color-border);
+  padding-bottom: var(--space-6);
+  margin-bottom: var(--space-6);
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: var(--text-xl);
-  letter-spacing: -0.01em;
+  font-size: var(--text-3xl);
+  letter-spacing: -0.02em;
 }
 
 .page-header p {
-  margin: var(--space-1) 0 var(--space-6);
+  margin: var(--space-2) 0 0;
   color: var(--color-text-muted);
+  font-size: var(--text-base);
 }
 
 .dashboard {
@@ -80,15 +87,34 @@ h2 {
   margin: 0;
 }
 
-/* --- badges / notes --- */
+/* --- badges --- */
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+
+.badge-success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
 .badge-warning {
   background: var(--color-warning-bg);
   color: var(--color-warning);
-  border-radius: var(--radius-pill);
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  white-space: nowrap;
+}
+
+.badge-danger {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+.badge-neutral {
+  background: var(--color-neutral-bg);
+  color: var(--color-text-muted);
 }
 
 .risk-note {
@@ -98,8 +124,12 @@ h2 {
   font-weight: var(--weight-semibold);
 }
 
-/* --- EP gauge --- */
-.gauge-wrap {
+/* --- EP card: перевернута ієрархія, все по центру --- */
+.ep-card {
+  text-align: center;
+}
+
+.ep-gauge {
   position: relative;
 }
 
@@ -109,14 +139,45 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--text-xl);
+  font-size: var(--text-3xl);
   font-weight: var(--weight-semibold);
+}
+
+.ep-headline {
+  margin: var(--space-2) 0 var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ep-headline-caption {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.ep-headline-value {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+}
+
+.ep-headline-value.warning {
+  color: var(--color-warning);
+}
+
+.ep-headline-value.danger {
+  color: var(--color-danger);
+}
+
+.ep-headline-value.muted {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
 }
 
 .ep-facts {
   display: flex;
-  gap: var(--space-6);
-  margin: var(--space-1) 0 var(--space-2);
+  justify-content: center;
+  gap: var(--space-8);
+  margin: 0;
 }
 
 .ep-facts dt {
@@ -129,15 +190,47 @@ h2 {
   font-weight: var(--weight-semibold);
 }
 
-.ep-status {
-  margin: 0;
-  font-size: var(--text-base);
-  color: var(--color-text-muted);
+/* --- concentration: діаграма | легенда --- */
+.concentration-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-4);
 }
 
-.ep-status.danger {
-  color: var(--color-danger);
-  font-weight: var(--weight-semibold);
+.pie-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pie-legend li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.pie-legend .swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-sm);
+}
+
+.pie-legend-name {
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pie-legend-pct {
+  color: var(--color-text-muted);
+  text-align: right;
 }
 
 /* --- table --- */
@@ -151,22 +244,29 @@ table {
   font-size: var(--text-base);
 }
 
-th,
-td {
+thead th {
   text-align: left;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+tbody td {
   padding: var(--space-2) var(--space-3);
   border-bottom: var(--border-width) solid var(--color-border);
   white-space: nowrap;
 }
 
-thead th {
-  color: var(--color-text-muted);
-  font-weight: var(--weight-medium);
-  font-size: var(--text-sm);
-}
-
 tbody tr:last-child td {
   border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--color-surface-2);
 }
 
 .num {
@@ -175,12 +275,12 @@ tbody tr:last-child td {
 
 /* --- chart tooltip (у стилі карток) --- */
 .chart-tooltip {
-  background: var(--color-surface);
+  background: var(--color-surface-2);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-2) var(--space-3);
   font-size: var(--text-sm);
-  box-shadow: 0 2px 8px rgba(26, 31, 43, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .chart-tooltip-label {
@@ -198,11 +298,9 @@ tbody tr:last-child td {
   font-weight: var(--weight-semibold);
 }
 
-/* Приглушені підписи осей Recharts. */
-.recharts-cartesian-axis-tick-value,
-.recharts-legend-item-text {
+/* Приглушені підписи осей/легенд Recharts. */
+.recharts-cartesian-axis-tick-value {
   fill: var(--color-text-muted);
-  color: var(--color-text-muted);
 }
 
 /* --- full-page states --- */

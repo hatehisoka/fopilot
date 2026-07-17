@@ -10,6 +10,7 @@
   --color-surface: #191c22;
   --color-surface-2: #232833;
   --color-border: #2b303b;
+  --color-border-strong: #363c49;
 
   /* Текст не чисто білий; другорядний — помітно приглушений (контраст >4.5:1). */
   --color-text: #e6e8ec;
@@ -59,9 +60,11 @@
   --text-lg: 16px;
   --text-2xl: 20px;
   --text-3xl: 30px;
+  --text-4xl: 48px;
   --weight-normal: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
+  --weight-bold: 700;
 
   --border-width: 1px;
   --container-max: 1200px;

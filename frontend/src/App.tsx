@@ -64,8 +64,10 @@ export function App() {
   return (
     <main className="page">
       <header className="page-header">
-        <h1>FOPilot</h1>
-        <p>Облік і фінансова аналітика ФОП · КВЕД 62.01</p>
+        <h1 className="brand">
+          <span className="brand-accent">FOP</span>ilot
+        </h1>
+        <p className="page-subtitle">Облік і фінансова аналітика ФОП · КВЕД 62.01</p>
       </header>
 
       <div className="dashboard">

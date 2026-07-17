@@ -152,6 +152,9 @@ Deliberately excluded (rationale in the decision log):
 - **No authentication or multi-tenancy** — the app targets a single sole proprietor.
 - **CSV statement import instead of a bank API.** A personal bank token is access to a real account;
   the security risk outweighs the convenience for a learning project.
+- **Compose runs the frontend in Vite dev mode**, not a production build behind nginx. A deliberate
+  choice for a development/demo environment; a production setup (static build, reverse proxy) is out
+  of scope.
 
 ## License
 

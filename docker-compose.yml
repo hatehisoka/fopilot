@@ -29,10 +29,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    # Міграції застосовуються перед запуском API.
+    # Міграції застосовуються перед запуском API. exec замінює процес sh на
+    # uvicorn, тож uvicorn стає PID 1 і отримує SIGTERM напряму — контейнер
+    # зупиняється штатно (exit 0), без 10-секундної паузи й SIGKILL (137).
     command: >
       sh -c "alembic upgrade head &&
-             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+             exec uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   frontend:
     build: ./frontend

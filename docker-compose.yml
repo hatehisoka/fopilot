@@ -37,7 +37,9 @@ services:
   frontend:
     build: ./frontend
     environment:
-      VITE_API_BASE_URL: http://localhost:8000
+      # Vite dev-сервер (у контейнері) проксить /api сюди; браузеру це ім'я
+      # недоступне, тож він ходить лише на http://localhost:5173/api.
+      VITE_API_PROXY_TARGET: http://backend:8000
     ports:
       - "5173:5173"
     depends_on:

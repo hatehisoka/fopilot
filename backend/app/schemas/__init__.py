@@ -1,5 +1,14 @@
 """Pydantic schemas (kept separate from ORM models)."""
 
+from app.schemas.analytics import (
+    ClientShare,
+    ConcentrationReport,
+    EpForecast,
+    PeriodAmount,
+    ProjectUtilization,
+    ReceiptsReport,
+    UtilizationReport,
+)
 from app.schemas.client import ClientCreate, ClientRead, ClientUpdate
 from app.schemas.import_report import ImportReport, ImportRowError
 from app.schemas.invoice import (
@@ -23,9 +32,16 @@ from app.schemas.time_entry import TimeEntryCreate, TimeEntryRead, TimeEntryUpda
 __all__ = [
     "ClientCreate",
     "ClientRead",
+    "ClientShare",
     "ClientUpdate",
+    "ConcentrationReport",
+    "EpForecast",
     "ImportReport",
     "ImportRowError",
+    "PeriodAmount",
+    "ProjectUtilization",
+    "ReceiptsReport",
+    "UtilizationReport",
     "InvoiceBuildRequest",
     "InvoiceCreate",
     "InvoiceItemCreate",

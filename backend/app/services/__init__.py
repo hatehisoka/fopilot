@@ -1,5 +1,6 @@
 """Business-logic layer."""
 
+from app.services.analytics import AnalyticsService
 from app.services.client_service import ClientService
 from app.services.csv_import import CsvImportService
 from app.services.exceptions import (
@@ -16,6 +17,7 @@ from app.services.project_service import ProjectService
 from app.services.time_entry_service import TimeEntryService
 
 __all__ = [
+    "AnalyticsService",
     "ClientService",
     "ConflictError",
     "CsvImportService",

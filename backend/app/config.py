@@ -17,6 +17,10 @@ class Settings(BaseSettings):
 
     # Business config
     ep_annual_limit: int = 10_091_049  # ліміт ЄП, 3 група, 2026
+    # Minimum days into the year before a run-rate forecast is trusted (ADR-015).
+    ep_forecast_min_days: int = 30
+    # Daily capacity used as the utilization denominator (ADR-016).
+    work_hours_per_day: int = 8
 
     # External APIs
     nbu_rate_url: str = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"

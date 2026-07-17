@@ -19,9 +19,10 @@ node_modules/
 dist/
 .vite/
 
-# IDE / OS
+# IDE / OS / tooling
 .idea/
 .vscode/
+.claude/
 .DS_Store
 *.iml
 

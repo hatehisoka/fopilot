@@ -1,7 +1,8 @@
 """Alembic migration environment.
 
 The database URL and target metadata are taken from the application config and
-ORM models, so migrations always match the code (see CLAUDE.md: no create_all).
+ORM models, so migrations always match the code (schema changes go through
+Alembic, never create_all).
 """
 
 from logging.config import fileConfig

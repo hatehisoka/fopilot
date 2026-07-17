@@ -145,7 +145,6 @@ erDiagram
 ```
 fopilot/
 ├── README.md                      # укр.
-├── CLAUDE.md                      # правила проєкту
 ├── docker-compose.yml
 ├── .env.example
 ├── .gitignore
@@ -185,7 +184,7 @@ fopilot/
 
 | # | Коміт | Зміст |
 |---|-------|-------|
-| 1 | `chore: scaffold repo, docker-compose, tooling` | Структура, `docker-compose`, `.env.example`, ruff, `CLAUDE.md`, каркас `docs/`, CI-заглушка |
+| 1 | `chore: scaffold repo, docker-compose, tooling` | Структура, `docker-compose`, `.env.example`, ruff, каркас `docs/`, CI-заглушка |
 | 2 | `feat(db): ORM models and initial migration` | Усі моделі (з `time_entry_id` у `InvoiceItem`) + перша Alembic-міграція |
 | 3 | `feat(api): CRUD for clients, projects, time entries, invoices` | Схеми Pydantic, репозиторії, тонкі роутери |
 | 4 | `feat(invoicing): build invoices from billable time entries` | Генерація позицій із треклогу + захист від подвійного білингу. Тести |

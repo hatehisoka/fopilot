@@ -28,3 +28,6 @@ dist/
 # Local data
 *.sqlite
 *.db
+
+# Seed-generated sample statements (date-stamped artifacts, produced by seed.py)
+backend/scripts/sample_statement*.csv

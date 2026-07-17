@@ -46,12 +46,18 @@ docker compose up --build   # Postgres + бекенд + фронт
 cd backend
 pip install -e ".[dev]"
 alembic upgrade head
-python scripts/seed.py        # тестові дані
+python scripts/seed.py         # демо-дані (--force щоб перезаписати наявні)
 uvicorn app.main:app --reload
 
 ruff check . && ruff format --check .
 pytest
 ```
+
+`scripts/seed.py` генерує детерміновані демо-дані зі сценарієм ФОПа, що наближається до ліміту
+ЄП (домінантний клієнт, провал utilization, неоплачені інвойси, платежі на ручне підтвердження),
+а також дві приклади-виписки для живого імпорту через Swagger: `scripts/sample_statement.csv`
+(UTF-8) і `scripts/sample_statement_win1251.csv` (Windows-1251 з битим рядком і легітимним
+дублікатом). Курси НБУ беруться з офлайн-снапшота, тож демо працює без інтернету.
 
 ## Документація
 

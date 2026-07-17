@@ -1,7 +1,9 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+import { AXIS_TICK, GRID_STROKE, SERIES_POSITIVE } from "../chartTheme";
 import { formatPercent, formatPeriodLabel } from "../format";
 import type { MonthlyUtilization } from "../types";
+import { ChartTooltip } from "./ChartTooltip";
 
 export function UtilizationChart({ data }: { data: MonthlyUtilization[] }) {
   // Нульова ємність (напр. місяць без робочих днів) -> utilization === null -> "—".
@@ -20,23 +22,27 @@ export function UtilizationChart({ data }: { data: MonthlyUtilization[] }) {
         <p className="empty">Немає даних</p>
       ) : (
         <ResponsiveContainer width="100%" height={260}>
-          <LineChart data={points} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="label" fontSize={12} />
+          <LineChart data={points} margin={{ top: 8, right: 8, bottom: 0, left: 8 }}>
+            <CartesianGrid stroke={GRID_STROKE} vertical={false} />
+            <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} />
             <YAxis
               domain={[0, 100]}
               tickFormatter={(v) => `${v}%`}
-              width={48}
-              fontSize={12}
+              tick={AXIS_TICK}
+              axisLine={false}
+              tickLine={false}
+              width={44}
             />
             <Tooltip
-              formatter={(v) => (typeof v === "number" ? formatPercent(v / 100) : "—")}
+              cursor={{ stroke: "var(--color-border)" }}
+              content={<ChartTooltip valueFormatter={(v) => formatPercent(v / 100)} />}
             />
             <Line
               type="monotone"
               dataKey="value"
-              stroke="#12a150"
+              stroke={SERIES_POSITIVE}
               strokeWidth={2}
+              dot={{ r: 3, fill: SERIES_POSITIVE }}
               connectNulls={false}
               name="Utilization"
             />

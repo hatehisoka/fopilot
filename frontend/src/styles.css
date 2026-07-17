@@ -1,45 +1,45 @@
-:root {
-  --bg: #f4f6fb;
-  --card: #ffffff;
-  --ink: #1c2330;
-  --muted: #6b7488;
-  --border: #e2e6ef;
-  --warn-bg: #fff4d6;
-  --warn-ink: #8a6300;
-  --danger: #c4443c;
-}
-
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  /* Табличні цифри: суми не «стрибають» по ширині — ключове для фінансів. */
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
 }
 
+h1,
+h2 {
+  font-weight: var(--weight-semibold);
+}
+
+/* --- layout --- */
 .page {
-  max-width: 1180px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 24px 20px 48px;
+  padding: var(--space-6) var(--space-4) var(--space-12);
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: var(--text-xl);
+  letter-spacing: -0.01em;
 }
 
 .page-header p {
-  margin: 4px 0 20px;
-  color: var(--muted);
+  margin: var(--space-1) 0 var(--space-6);
+  color: var(--color-text-muted);
 }
 
 .dashboard {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 @media (max-width: 820px) {
@@ -48,55 +48,57 @@ body {
   }
 }
 
+/* --- card --- */
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
 }
 
 .card.wide {
-  margin-top: 16px;
+  margin-top: var(--space-4);
 }
 
 .card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 
 .card-header h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-lg);
 }
 
 .empty {
-  color: var(--muted);
+  color: var(--color-text-muted);
   text-align: center;
-  padding: 48px 0;
+  padding: var(--space-12) 0;
   margin: 0;
 }
 
+/* --- badges / notes --- */
 .badge-warning {
-  background: var(--warn-bg);
-  color: var(--warn-ink);
-  border-radius: 999px;
-  padding: 3px 10px;
-  font-size: 12px;
-  font-weight: 600;
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
   white-space: nowrap;
 }
 
 .risk-note {
-  margin: 0 0 8px;
-  color: var(--danger);
-  font-size: 13px;
-  font-weight: 600;
+  margin: 0 0 var(--space-2);
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
 }
 
-/* EP gauge */
+/* --- EP gauge --- */
 .gauge-wrap {
   position: relative;
 }
@@ -107,38 +109,38 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
-  font-weight: 700;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
 }
 
 .ep-facts {
   display: flex;
-  gap: 24px;
-  margin: 4px 0 8px;
+  gap: var(--space-6);
+  margin: var(--space-1) 0 var(--space-2);
 }
 
 .ep-facts dt {
-  color: var(--muted);
-  font-size: 12px;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
 }
 
 .ep-facts dd {
-  margin: 2px 0 0;
-  font-weight: 600;
+  margin: var(--space-1) 0 0;
+  font-weight: var(--weight-semibold);
 }
 
 .ep-status {
   margin: 0;
-  font-size: 14px;
-  color: var(--muted);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
 }
 
 .ep-status.danger {
-  color: var(--danger);
-  font-weight: 600;
+  color: var(--color-danger);
+  font-weight: var(--weight-semibold);
 }
 
-/* table */
+/* --- table --- */
 .table-scroll {
   overflow-x: auto;
 }
@@ -146,42 +148,79 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: var(--text-base);
 }
 
 th,
 td {
   text-align: left;
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--border);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: var(--border-width) solid var(--color-border);
   white-space: nowrap;
 }
 
-th {
-  color: var(--muted);
-  font-weight: 600;
+thead th {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .num {
   text-align: right;
 }
 
-/* full-page states */
+/* --- chart tooltip (у стилі карток) --- */
+.chart-tooltip {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  box-shadow: 0 2px 8px rgba(26, 31, 43, 0.08);
+}
+
+.chart-tooltip-label {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.chart-tooltip-row {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.chart-tooltip-value {
+  font-weight: var(--weight-semibold);
+}
+
+/* Приглушені підписи осей Recharts. */
+.recharts-cartesian-axis-tick-value,
+.recharts-legend-item-text {
+  fill: var(--color-text-muted);
+  color: var(--color-text-muted);
+}
+
+/* --- full-page states --- */
 .state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 60vh;
-  gap: 6px;
-  color: var(--muted);
+  gap: var(--space-2);
+  color: var(--color-text-muted);
 }
 
 .state.error {
-  color: var(--danger);
+  color: var(--color-danger);
 }
 
 .state-detail {
-  color: var(--muted);
-  font-size: 13px;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
 }

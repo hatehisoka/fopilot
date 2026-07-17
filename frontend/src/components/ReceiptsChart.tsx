@@ -1,7 +1,9 @@
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+import { AXIS_TICK, BAR_RADIUS, GRID_STROKE, SERIES_ACCENT } from "../chartTheme";
 import { formatMoney, formatNumber, formatPeriodLabel } from "../format";
 import type { ReceiptsReport } from "../types";
+import { ChartTooltip } from "./ChartTooltip";
 import { UnconvertedBadge } from "./UnconvertedBadge";
 
 export function ReceiptsChart({ report }: { report: ReceiptsReport }) {
@@ -20,12 +22,21 @@ export function ReceiptsChart({ report }: { report: ReceiptsReport }) {
         <p className="empty">Немає даних</p>
       ) : (
         <ResponsiveContainer width="100%" height={260}>
-          <BarChart data={data} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="label" fontSize={12} />
-            <YAxis tickFormatter={(v) => formatNumber(v)} width={72} fontSize={12} />
-            <Tooltip formatter={(v) => (typeof v === "number" ? formatMoney(v) : String(v))} />
-            <Bar dataKey="amount" fill="#2f6feb" radius={[4, 4, 0, 0]} name="Надходження" />
+          <BarChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: 8 }}>
+            <CartesianGrid stroke={GRID_STROKE} vertical={false} />
+            <XAxis dataKey="label" tick={AXIS_TICK} axisLine={false} tickLine={false} />
+            <YAxis
+              tickFormatter={(v) => formatNumber(v)}
+              tick={AXIS_TICK}
+              axisLine={false}
+              tickLine={false}
+              width={72}
+            />
+            <Tooltip
+              cursor={{ fill: "var(--color-bg)" }}
+              content={<ChartTooltip valueFormatter={(v) => formatMoney(v)} />}
+            />
+            <Bar dataKey="amount" fill={SERIES_ACCENT} radius={[BAR_RADIUS, BAR_RADIUS, 0, 0]} name="Надходження" />
           </BarChart>
         </ResponsiveContainer>
       )}

@@ -1,10 +1,10 @@
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
+import { CATEGORICAL } from "../chartTheme";
 import { formatMoney, formatPercent } from "../format";
 import type { ConcentrationReport } from "../types";
+import { ChartTooltip } from "./ChartTooltip";
 import { UnconvertedBadge } from "./UnconvertedBadge";
-
-const COLORS = ["#2f6feb", "#12a150", "#e8a33d", "#c4443c", "#7b53c1", "#3aa6b9"];
 
 export function ConcentrationChart({ report }: { report: ConcentrationReport }) {
   const data = report.clients.map((c) => ({
@@ -32,10 +32,10 @@ export function ConcentrationChart({ report }: { report: ConcentrationReport }) 
             <PieChart>
               <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80}>
                 {data.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  <Cell key={i} fill={CATEGORICAL[i % CATEGORICAL.length]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(v) => (typeof v === "number" ? formatMoney(v) : String(v))} />
+              <Tooltip content={<ChartTooltip valueFormatter={(v) => formatMoney(v)} />} />
               <Legend formatter={(_, __, i) => `${data[i].name} (${formatPercent(data[i].share)})`} />
             </PieChart>
           </ResponsiveContainer>

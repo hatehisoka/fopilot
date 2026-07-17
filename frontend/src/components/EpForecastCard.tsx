@@ -8,7 +8,11 @@ export function EpForecastCard({ forecast }: { forecast: EpForecast }) {
   const share = forecast.share_of_limit;
   const exceeded = share >= 1;
   const gaugeValue = Math.min(share, 1) * 100;
-  const color = exceeded ? "#c4443c" : share >= 0.8 ? "#e8a33d" : "#12a150";
+  const color = exceeded
+    ? "var(--color-danger)"
+    : share >= 0.8
+      ? "var(--color-warning)"
+      : "var(--color-positive)";
 
   return (
     <section className="card">
